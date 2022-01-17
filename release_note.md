@@ -11,4 +11,9 @@
         - APP.ts
             - 시작에 필요한 미들웨어 생성 후 적용
 
+# 2022-01-17
+    - OOP
+        - exception 처리에대한 분석
+            - middleware 방식이 express 와는 다르다. 분석이 좀더 필요
+
 ## to do

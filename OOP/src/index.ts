@@ -1,6 +1,8 @@
 import koa from "koa";
 import Route from "koa-router";
 import bodyParser from "koa-bodyparser"
+import exceptions from "./middleware/exceptions";
+import InvalidAuthorizedTokenError from "./exception/invalidAuthorizedTokenException";
 
 class App {
     app;
@@ -30,6 +32,7 @@ class App {
 
     initializeErrHandling(){
         // exception 
+        this.app.use(exceptions);
     }
 
     initializeControllers(controller) {
@@ -38,6 +41,8 @@ class App {
         const route = new Route()
 
         this.router.get("/",(ctx)=> {
+            new InvalidAuthorizedTokenError("Dd")
+
             ctx.body= "ok"
         })
         controller.forEach(router=>{

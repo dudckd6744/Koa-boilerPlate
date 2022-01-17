@@ -1,4 +1,5 @@
 import Router from "koa-router"
+import InvalidAuthorizedTokenError from "../../exception/invalidAuthorizedTokenException";
 
 export default class UserComponent {
     router = new Router()
@@ -19,6 +20,10 @@ export default class UserComponent {
         ctx.body='ok1'
     }
     postTest = (ctx)=>{
-      console.log(ctx.request.body)
+      if(ctx.request.body.test == "@"){
+        ctx.body = ctx.request.body
+      }else{
+       throw new InvalidAuthorizedTokenError("tt")
+      }
     }
 }
