@@ -24,4 +24,11 @@
     - OOP
         - exception 처리 미들웨어 작성
 
+
+# 2022-01-18
+
+    - OOP
+        - mysql 연동
+
+
 ## to do

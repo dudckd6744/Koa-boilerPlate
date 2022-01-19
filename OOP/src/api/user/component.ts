@@ -23,7 +23,7 @@ export default class UserComponent {
     if (ctx.request.body.test == "@") {
       ctx.body = ctx.request.body;
     } else {
-      throw new InvalidAuthorizedTokenError("tt");
+      throw new InvalidAuthorizedTokenError("인증이필요합");
     }
   };
 }
