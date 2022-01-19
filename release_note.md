@@ -29,6 +29,6 @@
 
     - OOP
         - mysql 연동
-
+        - success wrapper 분석 및 구현 진행
 
 ## to do

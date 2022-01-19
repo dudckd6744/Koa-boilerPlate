@@ -1,5 +1,8 @@
 import Router from "koa-router";
+import BadRequestException from "../../exception/badRequestException";
 import InvalidAuthorizedTokenError from "../../exception/invalidAuthorizedTokenException";
+import {successWrapper} from "../../libs/success";
+
 
 export default class UserComponent {
   router = new Router();
@@ -10,20 +13,20 @@ export default class UserComponent {
   initializeRouter() {
     const router = new Router();
     const path = "/user";
-    router.get("/", this.test).post("/post", this.postTest);
+    router.get("/", successWrapper(this.test)).post("/post", successWrapper(this.postTest));
 
     this.router.use(path, router.routes());
   }
   test = (ctx) => {
-    ctx.body = "ok1";
+    return "ok1";
   };
   postTest = (ctx) => {
     console.log(ctx.request.body);
 
     if (ctx.request.body.test == "@") {
-      ctx.body = ctx.request.body;
+      return ctx.request.body;
     } else {
-      throw new InvalidAuthorizedTokenError("인증이필요합");
+      throw new BadRequestException("인증이필요합");
     }
   };
 }
