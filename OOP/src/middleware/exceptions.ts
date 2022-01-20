@@ -1,6 +1,4 @@
 const exceptions = async (ctx, next) => {
-    console.log("err");
-    
   try {
     await next();
   } catch (err) {

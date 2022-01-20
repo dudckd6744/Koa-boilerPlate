@@ -3,6 +3,7 @@ import Route from "koa-router";
 import bodyParser from "koa-bodyparser";
 import exceptions from "./middleware/exceptions";
 import InvalidAuthorizedTokenError from "./exception/invalidAuthorizedTokenException";
+import { verifyJWT } from "./middleware/auth";
 
 class App {
   app;
@@ -11,8 +12,8 @@ class App {
     this.router = new Route();
     this.app = new koa();
     this.initializeBodyParser();
-    this.initializeAuth();
     this.initializeErrHandling();
+    this.initializeAuth();
     this.initializeControllers(controller);
   }
 
@@ -27,13 +28,24 @@ class App {
     this.app.use(bodyParser());
   }
 
-  initializeAuth() {
-    // 인증 미들웨어
-  }
-
   initializeErrHandling() {
     // exception
     this.app.use(exceptions);
+    // this.app.use(async (ctx, next) => {
+    //   console.log(1);
+    //   const started = new Date();
+    //   next();
+    //   console.log(3);
+    // });
+
+    // this.app.use((ctx) => {
+    //   console.log(2);
+    // });
+  }
+
+  initializeAuth() {
+    // 인증 미들웨어
+    this.app.use(verifyJWT);
   }
 
   initializeControllers(controller) {

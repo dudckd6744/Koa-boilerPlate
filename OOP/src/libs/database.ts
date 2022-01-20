@@ -1,3 +1,4 @@
+import * as redis from "redis";
 import mysql from "mysql";
 
 export async function initializeDatabase() {
@@ -18,3 +19,9 @@ export async function initializeDatabase() {
 
   connection.end();
 }
+
+export const redisClient = redis.createClient();
+
+redisClient.on("error", (err) => console.log("Redis Client Error", err));
+
+redisClient.connect();
