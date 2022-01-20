@@ -13,11 +13,12 @@ export const verifyJWT = async (ctx, next) => {
       const refreshCookie = refreshBearerToken.replace("refresh-token=", "");
       // NOTE: verify 시 복호화 값 or jwt expired 값만 return 되게 만들었습니다.
       const user = await verify(token);
-
+      
       const refreshToken = refreshVerify(refreshCookie);
 
       // NOTE: AccessToken 만료 && RefreshToken 유효할때
       if (user == "jwt expired" && refreshToken) {
+        // NOTE: refresh API 용
         if (refreshToken != "jwt expired") {
           const UUID = await redisClient.get(refreshCookie);
           const token = signing(UUID);
@@ -32,21 +33,19 @@ export const verifyJWT = async (ctx, next) => {
         // NOTE: AccessToken 유효 && RefreshToken 만료
       } else {
         if (user != "jwt expired") {
-          const refreshExpire = await redisClient.KEYS(user.UUID);
+          const refreshExpire = await redisClient.KEYS("_id");
           if (user.UUID && !refreshExpire[0]) {
             const NewRefreshToken = reFreshsigning();
             const time = 60 * 60 * 24 * 14;
-            redisClient.set(NewRefreshToken, user.UUID);
-            redisClient.set(user.UUID, "");
+            redisClient.set(NewRefreshToken, "_id");
+            redisClient.set("_id", "");
             redisClient.expire(NewRefreshToken, time);
             redisClient.expire(user.UUID, time);
             // NOTE: 배포시에 secure && httpOnly 적용
             ctx.cookies.set("refresh-token", NewRefreshToken);
             ctx.user = user;
-            return next();
           } else if (user.UUID && refreshExpire[0]) {
             ctx.user = user;
-            return next();
           } else {
             return next().then((err) => {
               throw new BadRequestException(user || "Invalid Bearer Token");
@@ -54,6 +53,8 @@ export const verifyJWT = async (ctx, next) => {
           }
         }
       }
+      return next();
+
     } else {
       const { path } = ctx;
       const found = bypassPathList.find((p) => p === path);

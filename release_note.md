@@ -41,5 +41,8 @@
                 - err 발생시 return next().then(err => throw new Error())
                     - exception 미들웨어로 넘어가서 catch 블록안에 err 를 반환
         - AUTH 집가서 조금더 분석후 최적화 예정
+            - 분석후 로직 완성
+        - 서버Arch 구성
+    - koa 프레임워크에대한 이해도 높이기 용으로 OOP boilerPlate 구현 종료
 
 ## to do
