@@ -6,7 +6,7 @@ export default class UserService {
     }
 
     test (){
-        this.dao
+        this.dao.test()
 
     }
 }
