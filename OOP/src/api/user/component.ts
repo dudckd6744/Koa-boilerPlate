@@ -9,10 +9,9 @@ import UserService from "./service";
 
 export default class UserComponent {
   router = new Router();
-  service = new UserService(new UserDao())
+  service = new UserService(new UserDao());
 
   getService() {
-
     return this.service;
   }
 
@@ -33,7 +32,7 @@ export default class UserComponent {
     const test = signing("test");
     const test2 = reFreshsigning();
     redisClient.set(test2, "_id");
-    redisClient.set("_id", '');
+    redisClient.set("_id", "");
     // NOTE: 2주 입니다
     const time = 60 * 60 * 24 * 14;
     redisClient.expire(test2, time);

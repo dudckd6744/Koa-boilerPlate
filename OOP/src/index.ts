@@ -53,11 +53,11 @@ class App {
 
     const route = new Route();
 
-    this.router.get("/", (ctx) => {
-      new InvalidAuthorizedTokenError("Dd");
+    // this.router.get("/", (ctx) => {
+    //   ctx.body = "ok";
+    // });
+    console.log(controller);
 
-      ctx.body = "ok";
-    });
     controller.forEach((router) => {
       route.use(router);
     });
