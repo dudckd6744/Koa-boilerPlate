@@ -67,5 +67,5 @@
     - FP
         - 라우팅 설정 완료
         - exception 미들웨어 구현
-
+        - success wrapper 적용중이었으나 조금더 분석이필요
 ## to do

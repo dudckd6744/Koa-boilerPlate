@@ -9,7 +9,6 @@ const app = new koa();
 function createApp() {
   app.use(bodyParser());
   app.use(exception);
-
   // NOTE: 라우터 관리
   const container = createContainer().register({}); // register 에 의존성주입 해야되는것같다.
   app.use(scopePerRequest(container));
