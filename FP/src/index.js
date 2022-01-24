@@ -1,32 +1,21 @@
 const koa = require("koa");
 const bodyParser = require("koa-bodyparser");
-const { asClass, createContainer} = require("awilix")
-const {loadControllers, scopePerRequest, createController} = require("awilix-koa")
-// const Router = require("koa-router");
+const { asClass, createContainer, asValue } = require("awilix");
+const { loadControllers, scopePerRequest } = require("awilix-koa");
+const exception = require("./middleware/exception");
 
 const app = new koa();
-// const router = new Router();
-function createApp(controllers) {
 
-
-const container = createContainer().register({
-  // userService: asClass(/*...*/"tet"),
-  todoService: asClass(createController)
-})
-app.use(scopePerRequest(container))
+function createApp() {
   app.use(bodyParser());
-  // app.use(router.routes());
-  app.use(loadControllers('/api/**/*.{ts,js}', { cwd: __dirname }))
+  app.use(exception);
+
+  // NOTE: 라우터 관리
+  const container = createContainer().register({}); // register 에 의존성주입 해야되는것같다.
+  app.use(scopePerRequest(container));
+  app.use(loadControllers("api/**/*.{ts,js}", { cwd: __dirname }));
 
   app.listen(2000, () => console.log(`listening to port ${2000}`));
-
-  // const route = new Router();
-
-  // controllers.forEach((router) => {
-  //   console.log(router);
-  //   route.use(router);
-  // });
-  // router.use("/api", route.routes());
 }
 
 module.exports = { createApp };

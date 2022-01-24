@@ -1,35 +1,18 @@
-const Router = require("koa-router");
-const { createController } = require('awilix-koa')
+const { createController } = require("awilix-koa");
+const { BadRequestException } = require("../../exception");
+const { test } = require("./service");
 
-// function UserController() {
-//   //   ttete();
-//   return function ttete() {
-//     const route = new Router();
-//     const path = "/user";
-
-//     route.get("/").get("/test", test1).get("/test2");
-
-//     router.use(path, route.routes());
-
-//     function test1() {
-//       return console.log("test2");
-//     }
-//   };
-//   //   const test = (ctx) => {
-//   //     console.log("G");
-//   //     ctx.body = "ok";
-//   //   };
-// }
-
-const API = ({ todoService }) => ({
-  getTodo: async ctx => {(ctx.body = await todoService.get("ctx.params.id")),console.log("sds")},
-  createTodo: async ctx =>
-    (ctx.body = await todoService.create(ctx.request.body))
-})
+const API = () => ({
+  getTodo: (ctx) => {
+    console.log("3");
+    ctx.body = test();
+  },
+  createTodo: async (ctx) => {
+    throw new InvalidAuthorizedTokenException("gdgd");
+  },
+});
 
 module.exports = createController(API)
-
-  .prefix('/user') // Prefix all endpoints with `/todo`
-  .get('/', 'getTodo') // Maps `GET /todos/:id` to the `getTodo` function on the returned object from `API`
-
-// module.exports={createController}
+  .prefix("/api")
+  .get("", "getTodo")
+  .post("/test", "createTodo"); // Maps `GET /todos/:id` to the `getTodo` function on the returned object from `API`
