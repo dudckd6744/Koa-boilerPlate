@@ -28,3 +28,9 @@ koa 프레임워크를 이용한 boiler-plate
 | start |`node dist/server.js`| 컴파일러된 server.js 실행|
 
 # FP
+
+## 문제점
+#### OOP 에서 router 관리할때처럼 FP 에서도 시도해보았는데 되지않았다
+- 인스턴스화를시키지 못했다.
+## 해결
+#### awlilx-koa 라는 lib 를 사용하여 router 를 좀더 가독성있고 확장성있게 구현하였다.
