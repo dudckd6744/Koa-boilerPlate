@@ -1,7 +1,7 @@
-const {test} = require('./dao')
+const dao = require('./dao')
 
-const test = (ctx) => {
-  return test(ctx)
+exports.getToDo = (ctx) => {
+  console.log("serv");
+  return dao.test(ctx)
 };
 
-module.exports = { test };

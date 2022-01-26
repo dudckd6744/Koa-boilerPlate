@@ -1,5 +1,5 @@
-const test=(ctx)=>{
- return {ok:"success"}   
+exports.test=(ctx)=>{
+    console.log("dao")
+ return ctx
 }
 
-module.exports={test}

@@ -1,8 +1,8 @@
 const successWrapper = (handler) => async (ctx, next) => {
-  console.log("@");
-    const response = await handler(ctx);
-    console.log("12");
-    ctx.body = ({
+  console.log("1");
+    const response = await handler("ctx");
+  console.log("2");
+  ctx.body = ({
       success: true,
       response,
       error: null,
